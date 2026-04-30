@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "894175819994",
+    "project_id": "daililus",
+    "storage_bucket": "daililus.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894175819994:android:3cac7ee71d2b1b90ef8de3",
+        "android_client_info": {
+          "package_name": "com.example.daililus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "894175819994-5hvhljq3rnfo4rs0falkccmsp69p3jpc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.daililus",
+            "certificate_hash": "b735f8c6223fcdfbd06146866970d419f5dbc682"
+          }
+        },
+        {
+          "client_id": "894175819994-0fj6b6pg8uarhulg79pgp571r9trft76.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChZSom0R_HB5-8nXkUhYellnqDgDwE7U0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "894175819994-0fj6b6pg8uarhulg79pgp571r9trft76.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

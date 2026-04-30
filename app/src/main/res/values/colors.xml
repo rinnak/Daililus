@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_purple">#361661</color>
+    <color name="button_orange">#FF8F67</color>
+    <color name="input_field_bg">#F1E9FF</color>
+    <color name="text_main">#1A1A2E</color>
+    <color name="text_secondary">#6C6C7A</color>
+    <color name="white">#FEFEFE</color>
+</resources>

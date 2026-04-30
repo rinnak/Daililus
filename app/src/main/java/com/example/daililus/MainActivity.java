@@ -36,14 +36,22 @@ public class MainActivity extends AppCompatActivity {
                 selectedFragment = new HomeFragment();
             }
             else if (id == R.id.nav_notes){
-//                selectedFragment = new NotesFragment();
+                selectedFragment = new NotesFragment();
             }
             else if (id == R.id.nav_profile){
 //                selectedFragment = new ProfileFragment();
             }
             else if (id == R.id.nav_add){
-                AddTaskBottomSheet addSheet = new AddTaskBottomSheet();
-                addSheet.show(getSupportFragmentManager(), "AddTask");
+                Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
+                if (currentFragment instanceof HomeFragment){
+                    AddTaskBottomSheet addSheet = new AddTaskBottomSheet();
+                    addSheet.show(getSupportFragmentManager(), "AddTask");
+                }
+                else if (currentFragment instanceof NotesFragment){
+                    AddNoteBottomSheet noteSheet = new AddNoteBottomSheet();
+                    noteSheet.show(getSupportFragmentManager(), "AddNote");
+                }
                 return false;
             }
 

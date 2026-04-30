@@ -1,0 +1,120 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2E1A5E"> <!-- Темный фон под скруглением -->
+
+    <LinearLayout
+        android:id="@+id/contentSheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/toolbarBottom"
+        android:background="@drawable/bg_bottom_rounded"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Верхняя панель: Стрелка и Дата -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:id="@+id/tvEditorDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/btnBack"
+                android:layout_marginStart="8dp"
+                android:text="Дата: Дек 7, 2026"
+                android:textColor="#7A757F" />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/etEditorTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@null"
+            android:hint="Заголовок"
+            android:textColor="#1D1B20"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etEditorContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp"
+            android:background="@null"
+            android:gravity="top"
+            android:textColor="#1D1B20"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- Нижняя панель в две строки -->
+    <LinearLayout
+        android:id="@+id/toolbarBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#2E1A5E"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:paddingTop="10dp"
+        android:paddingHorizontal="20dp">
+
+
+
+        <!-- Первая строка кнопок -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="12dp">
+
+            <ImageButton android:id="@+id/btnBold" android:layout_width="45dp" android:layout_height="45dp" android:layout_marginEnd="8dp" android:background="@drawable/bg_format_button" android:src="@drawable/ic_bold" />
+            <ImageButton android:id="@+id/btnItalic" android:layout_width="45dp" android:layout_height="45dp" android:layout_marginEnd="8dp" android:background="@drawable/bg_format_button" android:src="@drawable/ic_italic" />
+            <ImageButton android:id="@+id/btnUnderline" android:layout_width="45dp" android:layout_height="45dp" android:layout_marginEnd="8dp" android:background="@drawable/bg_format_button" android:src="@drawable/ic_underline" />
+            <ImageButton android:id="@+id/btnH1" android:layout_width="45dp" android:layout_height="45dp" android:layout_marginEnd="8dp" android:background="@drawable/bg_format_button" android:src="@drawable/ic_h1" />
+            <ImageButton android:id="@+id/btnH2" android:layout_width="45dp" android:layout_height="45dp" android:layout_marginEnd="8dp" android:background="@drawable/bg_format_button" android:src="@drawable/ic_h2" />
+            <ImageButton android:id="@+id/btnStrikeThrough" android:layout_width="45dp" android:layout_height="45dp" android:background="@drawable/bg_format_button" android:src="@drawable/ic_strikethrough" />
+        </LinearLayout>
+
+        <!-- Вторая строка кнопок -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/btnCheckbox"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_format_button"
+                android:src="@drawable/ic_check_list" />
+            <ImageButton
+                android:id="@+id/btnTextColor"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_format_button"
+                android:src="@drawable/ic_text_color" />
+            <ImageButton
+                android:id="@+id/btnTextBackground"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/bg_format_button"
+                android:src="@drawable/ic_format_fill" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

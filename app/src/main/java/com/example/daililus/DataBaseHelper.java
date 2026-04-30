@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "DaililusDB";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 5;
 
     private static final String TABLE_USERS = "users";
     private static final String COLUMN_EMAIL = "email";
@@ -22,6 +22,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_TASK_NAME = "task_name";
     private static final String COLUMN_IS_DONE = "is_done";
     private static final String COLUMN_DATE = "date";
+
+    private static final String TABLE_NOTES = "notes";
+    private static final String COLUMN_NOTE_ID = "id";
+    private static final String COLUMN_NOTE_TITLE = "title";
+    private static final String COLUMN_NOTE_DATE = "date";
+
+    private static final String COLUMN_NOTE_CONTENT = "content";
+
     public DataBaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -38,6 +46,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 COLUMN_TASK_NAME + " TEXT, " +
                 COLUMN_IS_DONE + " INTEGER, "+
                 COLUMN_DATE + " TEXT)");
+
+        db.execSQL("CREATE TABLE " + TABLE_NOTES + " (" +
+                COLUMN_NOTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_NOTE_TITLE + " TEXT, " +
+                COLUMN_NOTE_DATE + " TEXT, " +
+                COLUMN_NOTE_CONTENT + " TEXT)");
     }
 
     public String getUserName(String email){
@@ -62,6 +76,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS );
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TASKS );
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NOTES );
         onCreate(db);
     }
 
@@ -110,6 +125,44 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         db.update(TABLE_TASKS, cv, COLUMN_ID + "=?", new String[]{String.valueOf(id)});
         db.close();
-
     }
+
+    public void addNote(String title, String date){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_NOTE_TITLE, title);
+        cv.put(COLUMN_NOTE_DATE, date);
+        db.insert(TABLE_NOTES, null, cv);
+        db.close();
+    }
+
+    public List<Note> getAllNotes(){
+        List<Note> notes = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NOTES, null, null, null, null, null, COLUMN_NOTE_ID + " DESC");
+
+        if (cursor != null && cursor.moveToFirst()){
+            do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NOTE_ID));
+                String title = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_TITLE));
+                String date = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_DATE));
+                String content = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NOTE_CONTENT));
+                notes.add(new Note(id, title, date, content));
+            }
+            while (cursor.moveToNext());
+            cursor.close();
+        }
+        return notes;
+    }
+
+    public void updateNoteContent(int id, String content){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_NOTE_CONTENT, content);
+
+        db.update(TABLE_NOTES, cv, COLUMN_NOTE_ID + "=?", new String[]{String.valueOf(id)});
+        db.close();
+    }
+
+
 }

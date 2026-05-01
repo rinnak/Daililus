@@ -12,7 +12,6 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- Верхняя панель: Стрелка и Дата -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -32,7 +31,16 @@
                 android:layout_toEndOf="@id/btnBack"
                 android:layout_marginStart="8dp"
                 android:text="Дата: Дек 7, 2026"
-                android:textColor="#7A757F" />
+                android:textColor="#7A757F"
+                />
+            <ImageButton
+                android:id="@+id/btnDelete"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_basket"
+                android:tint="#E53935" />
         </RelativeLayout>
 
         <EditText

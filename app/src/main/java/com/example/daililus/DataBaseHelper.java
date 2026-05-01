@@ -164,5 +164,20 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void updateNote(int id, String title, String conntent){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_NOTE_TITLE, title);
+        cv.put(COLUMN_NOTE_CONTENT, conntent);
+        db.update(TABLE_NOTES, cv, COLUMN_NOTE_ID + "=?", new String[]{String.valueOf(id)});
+        db.close();
+    }
+
+    public void deleteNote(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NOTES, COLUMN_NOTE_ID + "=?", new String[]{String.valueOf(id)});
+        db.close();
+    }
 
 }

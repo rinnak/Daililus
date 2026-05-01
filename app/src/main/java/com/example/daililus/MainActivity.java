@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
                 selectedFragment = new NotesFragment();
             }
             else if (id == R.id.nav_profile){
-//                selectedFragment = new ProfileFragment();
+
+                selectedFragment = new ProfileFragment();
             }
             else if (id == R.id.nav_add){
                 Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);

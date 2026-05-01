@@ -11,7 +11,8 @@ import java.util.List;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "DaililusDB";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
+    private static final String COLUMN_USER_EMAIL = "user_email";
 
     private static final String TABLE_USERS = "users";
     private static final String COLUMN_EMAIL = "email";
@@ -45,13 +46,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_TASK_NAME + " TEXT, " +
                 COLUMN_IS_DONE + " INTEGER, "+
-                COLUMN_DATE + " TEXT)");
+                COLUMN_DATE + " TEXT, " +
+                COLUMN_USER_EMAIL + " TEXT)");
 
         db.execSQL("CREATE TABLE " + TABLE_NOTES + " (" +
                 COLUMN_NOTE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NOTE_TITLE + " TEXT, " +
                 COLUMN_NOTE_DATE + " TEXT, " +
-                COLUMN_NOTE_CONTENT + " TEXT)");
+                COLUMN_NOTE_CONTENT + " TEXT, " +
+                COLUMN_USER_EMAIL + " TEXT)");
     }
 
     public String getUserName(String email){
@@ -91,28 +94,38 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addTask(Task task, String date){
+    public void updateUserName(String email, String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_NAME, name);
+
+        db.update(TABLE_USERS, cv, COLUMN_EMAIL + " = ?", new String[]{email});
+        db.close();
+    }
+    public void addTask(Task task, String date, String userEmail){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_TASK_NAME, task.getText());
         cv.put(COLUMN_IS_DONE, task.isDone() ? 1 : 0);
         cv.put(COLUMN_DATE, date);
+        cv.put(COLUMN_USER_EMAIL, userEmail);
         db.insert(TABLE_TASKS, null, cv);
         db.close();
     }
 
-    public List<Task> getTaskByDate(String date){
+    public List<Task> getTaskByDate(String date, String userEmail){
         List<Task> tasks = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor= db.query(TABLE_TASKS, null, COLUMN_DATE + "=?", new String[]{date}, null, null, null);
+        Cursor cursor = db.query(TABLE_TASKS, null,
+                COLUMN_DATE + "=? AND " + COLUMN_USER_EMAIL + "=?",
+                new String[]{date, userEmail}, null, null, null);
         if (cursor != null && cursor.moveToFirst()){
             do {
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID));
                 String title = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TASK_NAME));
                 boolean isDone = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_IS_DONE)) == 1;
                 tasks.add(new Task(id, title, isDone));
-            }
-            while(cursor.moveToNext());
+            } while(cursor.moveToNext());
             cursor.close();
         }
         return tasks;
@@ -127,19 +140,22 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addNote(String title, String date){
+    public void addNote(String title, String date, String userEmail){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_NOTE_TITLE, title);
         cv.put(COLUMN_NOTE_DATE, date);
+        cv.put(COLUMN_USER_EMAIL, userEmail);
         db.insert(TABLE_NOTES, null, cv);
         db.close();
     }
 
-    public List<Note> getAllNotes(){
+    public List<Note> getAllNotes(String userEmail  ){
         List<Note> notes = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NOTES, null, null, null, null, null, COLUMN_NOTE_ID + " DESC");
+        Cursor cursor = db.query(TABLE_NOTES, null,
+                COLUMN_USER_EMAIL + "=?",
+                new String[]{userEmail}, null, null, COLUMN_NOTE_ID + " DESC");
 
         if (cursor != null && cursor.moveToFirst()){
             do {
@@ -155,21 +171,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return notes;
     }
 
-    public void updateNoteContent(int id, String content){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put(COLUMN_NOTE_CONTENT, content);
-
-        db.update(TABLE_NOTES, cv, COLUMN_NOTE_ID + "=?", new String[]{String.valueOf(id)});
-        db.close();
-    }
-
-    public void updateNote(int id, String title, String conntent){
+    public void updateNote(int id, String title, String content){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put(COLUMN_NOTE_TITLE, title);
-        cv.put(COLUMN_NOTE_CONTENT, conntent);
+        cv.put(COLUMN_NOTE_CONTENT, content);
         db.update(TABLE_NOTES, cv, COLUMN_NOTE_ID + "=?", new String[]{String.valueOf(id)});
         db.close();
     }

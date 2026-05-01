@@ -66,6 +66,20 @@ public class LoginActivity extends AppCompatActivity {
                 btnLogin.setText("Входим...");
             }
             else if (state.isSuccess()){
+                String email = etEmail.getText().toString().trim();
+                getSharedPreferences("UserSession", MODE_PRIVATE)
+                        .edit()
+                        .putString("current_user_email", email)
+                        .apply();
+
+                new Thread(() -> {
+                    DataBaseHelper dbHelper = new DataBaseHelper(LoginActivity.this);
+                    if (dbHelper.getUserName(email) == null) {
+                        String defaultName = email.split("@")[0];
+                        dbHelper.saveUser(email, defaultName);
+                    }
+                }).start();
+
                 Toast.makeText(this, "Вход выполнен!", Toast.LENGTH_SHORT).show();
                 navigateToMain();
             }

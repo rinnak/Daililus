@@ -10,6 +10,8 @@ import android.widget.EditText;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,9 +28,11 @@ public class AddNoteBottomSheet extends BottomSheetDialogFragment {
 
         btnSave.setOnClickListener(v -> {
             String title = etTitle.getText().toString();
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (!title.isEmpty()){
+                String userEmail = user.getEmail();
                 String currentDate = new SimpleDateFormat("MMM d, yyyy", Locale.getDefault()).format(new Date());
-                dbHelper.addNote(title, currentDate);
+                dbHelper.addNote(title, currentDate, userEmail);
                 NotesViewModel viewModel = new ViewModelProvider(requireActivity()).get(NotesViewModel.class);
                 viewModel.triggerUpdate();
                 dismiss();

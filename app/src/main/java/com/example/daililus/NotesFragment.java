@@ -11,6 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class NotesFragment extends Fragment {
 
     private NotesViewModel viewModel;
@@ -43,8 +46,10 @@ public class NotesFragment extends Fragment {
     }
 
     public void loadNotes(){
-        if (dbHelper != null && adapter != null){
-            adapter.setNotes(dbHelper.getAllNotes());
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null && dbHelper != null && adapter != null){
+            String email = user.getEmail();
+            adapter.setNotes(dbHelper.getAllNotes(email));
         }
     }
 

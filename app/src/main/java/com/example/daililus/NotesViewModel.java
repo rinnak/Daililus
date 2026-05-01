@@ -17,8 +17,8 @@ public class NotesViewModel extends ViewModel {
         updateTrigger.setValue(true);
     }
 
-    public List<Note> getNotes(DataBaseHelper dbHelper){
-        return dbHelper.getAllNotes();
+    public List<Note> getNotes(DataBaseHelper dbHelper, String userEmail){
+        return dbHelper.getAllNotes(userEmail);
     }
 
 }

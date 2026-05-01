@@ -4,12 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding = "20dp"
+    android:background="@drawable/bg_note"
     >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#000000"
             android:text = "Новая задача"
             android:textSize="18sp"
+            android:textColorHint="#8C8C8C"
             android:textStyle = "bold"
         />
 
@@ -18,6 +21,9 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
+            android:background="@null"
+            android:textColor="#000000"
+            android:textColorHint="#8C8C8C"
             android:hint="Что нужно сделать?"
             />
         <Button
@@ -26,5 +32,7 @@
             android:layout_width="match_parent"
             android:layout_marginTop="15dp"
             android:text="Добавить"
+            android:backgroundTint="#FF8A5C"
+            android:textColor="#fefefe"
             />
 </LinearLayout>

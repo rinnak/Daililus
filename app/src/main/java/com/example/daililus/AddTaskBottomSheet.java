@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.jspecify.annotations.NonNull;
 
@@ -35,10 +37,12 @@ public class AddTaskBottomSheet extends BottomSheetDialogFragment {
 
         btnSave.setOnClickListener(v -> {
             String text = etTaskName.getText().toString();
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
             if (!text.isEmpty()){
+                String userEmail = user.getEmail();
                 Task newTask = new Task(0, text, false);
-                viewModel.addTask(dbHelper, viewModel.selectedDate, newTask);
+                viewModel.addTask(dbHelper, viewModel.selectedDate, newTask, userEmail);
                 dismiss();
             }
             else{

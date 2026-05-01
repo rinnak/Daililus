@@ -14,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.jspecify.annotations.NonNull;
 
@@ -71,9 +73,10 @@ public class HomeFragment extends Fragment {
         btnCalendar.setOnClickListener(v -> showDatePicker());
 
 
-        viewModel.getUpdateTrigger().observe(getViewLifecycleOwner(), trigger -> {
-            updateTaskList();
+        viewModel.getUserNameTrigger().observe(getViewLifecycleOwner(), newName -> {
+            if (newName != null) tvUserName.setText(newName);
         });
+        loadUserName();
         updateTaskList();
     }
 
@@ -99,7 +102,10 @@ public class HomeFragment extends Fragment {
 
 
     private void updateTaskList(){
-        List<Task> allTasksForDate = viewModel.getTaskByDate(dbHelper, viewModel.selectedDate);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) return;
+        String email = user.getEmail();
+        List<Task> allTasksForDate = dbHelper.getTaskByDate(viewModel.selectedDate, email);
         List<Task> filteredTasks = new ArrayList<>();
 
         for(Task task : allTasksForDate){
@@ -118,8 +124,9 @@ public class HomeFragment extends Fragment {
         }
     }
     private void loadUserName(){
-        if (com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser() == null) return;
-        String email = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) return;
+        String email = user.getEmail();
         new Thread(() -> {
             String name = dbHelper.getUserName(email);
             if (getActivity() != null){
@@ -151,18 +158,17 @@ public class HomeFragment extends Fragment {
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
                 (view, year1, monthOfYear, dayOfMonth) -> {
-                    String selectedDate = dayOfMonth + " "  + getMonthName(monthOfYear) + ", " + year1;
+                    Calendar selectedCal = Calendar.getInstance();
+                    selectedCal.set(year1, monthOfYear, dayOfMonth);
+                    SimpleDateFormat sdf = new SimpleDateFormat("d MMMM, yyyy", new Locale("ru"));
+                    String selectedDate = sdf.format(selectedCal.getTime());
+
                     viewModel.selectedDate = selectedDate;
                     tvCurrentDate.setText(selectedDate);
                     updateTaskList();
                 }, year, month, day
                 );
         datePickerDialog.show();
-    }
-    private String getMonthName(int month) {
-        String[] monthNames = {"Января", "Февраля", "Марта", "Апреля", "Мая", "Июня",
-                "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"};
-        return monthNames[month];
     }
 
     private void setupRecyclerView(){
@@ -180,6 +186,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
+        loadUserName();
         updateTaskList();
     }
 }

@@ -11,20 +11,22 @@ import java.util.Map;
 
 public class HomeViewModel extends ViewModel {
     public String selectedDate = null;
-    public int selectedTab = 0;
+    public int selectedTab = 2;
     private final MutableLiveData<Boolean> updateTrigger = new MutableLiveData<>();
+    private final MutableLiveData<String> userNameTrigger = new MutableLiveData<>();
     public LiveData<Boolean> getUpdateTrigger() {
         return updateTrigger;
     }
-
-    public Map<String, List<Task>> taskByDate = new HashMap<>();
-
-    public List<Task> getTaskByDate(DataBaseHelper dbHelper, String date){
-        return dbHelper.getTaskByDate(date);
+    public LiveData<String> getUserNameTrigger() {
+        return userNameTrigger;
+    }
+    public void updateName(String newName) {
+        userNameTrigger.setValue(newName);
     }
 
-    public void addTask(DataBaseHelper dbHelper, String date, Task task){
-        dbHelper.addTask(task, date);
+
+    public void addTask(DataBaseHelper dbHelper, String date, Task task, String userEmail){
+        dbHelper.addTask(task, date, userEmail);
         updateTrigger.setValue(true);
     }
 

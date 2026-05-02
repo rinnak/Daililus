@@ -32,7 +32,7 @@ public class AddNoteBottomSheet extends BottomSheetDialogFragment {
             if (!title.isEmpty()){
                 String userEmail = user.getEmail();
                 String currentDate = new SimpleDateFormat("MMM d, yyyy", Locale.getDefault()).format(new Date());
-                dbHelper.addNote(title, currentDate, userEmail);
+                dbHelper.addNote(title, "", currentDate, userEmail);
                 NotesViewModel viewModel = new ViewModelProvider(requireActivity()).get(NotesViewModel.class);
                 viewModel.triggerUpdate();
                 dismiss();

@@ -105,6 +105,13 @@
 
             <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#E0E0E0" android:layout_marginHorizontal="16dp"/>
 
+
+            <RelativeLayout
+                android:id="@+id/rPolicy"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:paddingRight="16dp">
+
             <TextView
                 android:id="@+id/tvPolicy"
                 android:layout_width="match_parent"
@@ -114,7 +121,25 @@
                 android:text="Политика конфиденциальности"
                 android:textColor="#1D1B20"
                 android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/ivArrowPolicy"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_chevron_right" />
+            </RelativeLayout>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvPolicyDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Ваши данные в приложении Daililus защищены и хранятся в Firebase. Мы не передаем информацию третьим лицам."
+            android:textColor="#555555"
+            android:visibility="gone" />
 
         <View
             android:layout_width="match_parent"
@@ -147,7 +172,7 @@
             android:id="@+id/ivAvatar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/default_avatar"
+            android:src="@drawable/defeult_avatar"
             android:scaleType="centerCrop"
             android:padding="3dp"
             app:strokeColor="#FFFFFF"
@@ -159,8 +184,8 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_gravity="bottom|end"
-            android:src="@drawable/ic_plus"
-            app:tint="#FFFFFF" />
+            android:src="@drawable/add_avatar"
+ />
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

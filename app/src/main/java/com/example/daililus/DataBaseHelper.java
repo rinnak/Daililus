@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "DaililusDB";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
     private static final String COLUMN_USER_EMAIL = "user_email";
 
     private static final String TABLE_USERS = "users";
@@ -140,10 +140,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addNote(String title, String date, String userEmail){
+    public void addNote(String title,String content, String date, String userEmail){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_NOTE_TITLE, title);
+        cv.put(COLUMN_NOTE_CONTENT, content);
         cv.put(COLUMN_NOTE_DATE, date);
         cv.put(COLUMN_USER_EMAIL, userEmail);
         db.insert(TABLE_NOTES, null, cv);

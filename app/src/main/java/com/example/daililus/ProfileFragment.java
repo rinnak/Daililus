@@ -15,7 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +38,16 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
+    public void onStart(){
+        super.onStart();
+        View btnAddNote = getActivity().findViewById(R.id.nav_add);
+        if (btnAddNote != null) {
+            btnAddNote.setEnabled(false);
+            btnAddNote.setAlpha(0.5f);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_profile, container, false);
@@ -42,9 +55,10 @@ public class ProfileFragment extends Fragment {
         dbHelper = new DataBaseHelper(getContext());
         TextView tvUserName = view.findViewById(R.id.tvUserName);
         TextView tvUserEmail = view.findViewById(R.id.tvUserEmail);
-        Button btnLogout = view.findViewById(R.id.btnLogout);
-        TextView tvPolicy = view.findViewById(R.id.tvPolicy);
         ImageButton btnEditName = view.findViewById(R.id.btnEditName);
+        View llPolicyContainer = view.findViewById(R.id.rPolicy);
+        TextView tvPolicyDetails = view.findViewById(R.id.tvPolicyDetails);
+        ImageView ivPolicyArrow = view.findViewById(R.id.ivArrowPolicy);
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
@@ -59,6 +73,16 @@ public class ProfileFragment extends Fragment {
             tvUserName.setText(name != null ? name : "Пользователь");
             tvUserEmail.setText(currentUserEmail);
         }
+
+
+        view.findViewById(R.id.rlLanguage).setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Функционал в разработке", Toast.LENGTH_SHORT).show();
+        });
+
+        view.findViewById(R.id.btnAddAvatar).setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Функционал в разработке", Toast.LENGTH_SHORT).show();
+        });
+
 
         btnEditName.setOnClickListener(v -> {
             final EditText taskInput = new EditText(getContext());
@@ -88,6 +112,27 @@ public class ProfileFragment extends Fragment {
             getActivity().finish();
         });
 
+        llPolicyContainer.setOnClickListener(v -> {
+            boolean isVisible = tvPolicyDetails.getVisibility() == View.VISIBLE;
+            if (isVisible) {
+                tvPolicyDetails.setVisibility(View.GONE);
+                ivPolicyArrow.animate().rotation(0).setDuration(300).start();
+            } else {
+                tvPolicyDetails.setVisibility(View.VISIBLE);
+                ivPolicyArrow.animate().rotation(90).setDuration(300).start();
+            }
+        });
+
         return view;
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        View btnAddNote = getActivity().findViewById(R.id.nav_add);
+        if (btnAddNote != null) {
+            btnAddNote.setEnabled(true);
+            btnAddNote.setAlpha(1.0f);
+        }
     }
 }

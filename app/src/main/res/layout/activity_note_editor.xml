@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2E1A5E"> <!-- Темный фон под скруглением -->
+    android:background="#2E1A5E">
 
     <LinearLayout
         android:id="@+id/contentSheet"
@@ -65,7 +65,6 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <!-- Нижняя панель в две строки -->
     <LinearLayout
         android:id="@+id/toolbarBottom"
         android:layout_width="match_parent"
@@ -79,7 +78,6 @@
 
 
 
-        <!-- Первая строка кнопок -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -95,7 +93,6 @@
             <ImageButton android:id="@+id/btnStrikeThrough" android:layout_width="45dp" android:layout_height="45dp" android:background="@drawable/bg_format_button" android:src="@drawable/ic_strikethrough" />
         </LinearLayout>
 
-        <!-- Вторая строка кнопок -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

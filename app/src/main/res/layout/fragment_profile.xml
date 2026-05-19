@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2E1A5E">
+    android:background="?attr/colorPrimary" >
 
     <TextView
         android:id="@+id/tvProfileTitle"
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Пользователь"
-                android:textColor="#1D1B20"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="example@mail.ru"
-            android:textColor="#7A757F"
+            android:textColor="?android:attr/textColorSecondary"
             android:layout_marginBottom="32dp" />
 
         <LinearLayout
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="Язык"
-                    android:textColor="#1D1B20"
+                    android:textColor="?android:attr/textColorPrimary"
                     android:textSize="16sp" />
 
                 <TextView
@@ -92,7 +92,7 @@
                     android:layout_toStartOf="@id/ivArrow"
                     android:layout_marginEnd="8dp"
                     android:text="Русский"
-                    android:textColor="#7A757F" />
+                    android:textColor="?android:attr/textColorSecondary"     />
 
                 <ImageView
                     android:id="@+id/ivArrow"
@@ -100,11 +100,35 @@
                     android:layout_height="16dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_chevron_right" />
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="?android:attr/textColorSecondary"/>
             </RelativeLayout>
 
             <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#E0E0E0" android:layout_marginHorizontal="16dp"/>
 
+            <RelativeLayout
+                android:id="@+id/rlTheme"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:paddingHorizontal="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Тёмная тема"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="16sp" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchTheme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    app:thumbTint="?attr/colorSecondary" /> </RelativeLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#E0E0E0" android:layout_marginHorizontal="16dp"/>
 
             <RelativeLayout
                 android:id="@+id/rPolicy"
@@ -119,7 +143,7 @@
                 android:gravity="center_vertical"
                 android:paddingHorizontal="16dp"
                 android:text="Политика конфиденциальности"
-                android:textColor="#1D1B20"
+                android:textColor="?android:attr/textColorPrimary"
                 android:textSize="16sp" />
 
             <ImageView
@@ -128,6 +152,7 @@
                 android:layout_height="16dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                app:tint="?android:attr/textColorSecondary"
                 android:src="@drawable/ic_chevron_right" />
             </RelativeLayout>
         </LinearLayout>
@@ -138,7 +163,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Ваши данные в приложении Daililus защищены и хранятся в Firebase. Мы не передаем информацию третьим лицам."
-            android:textColor="#555555"
+            android:textColor="?android:attr/textColorSecondary"
             android:visibility="gone" />
 
         <View
@@ -151,7 +176,7 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginBottom="32dp"
-            android:backgroundTint="#FF8A65"
+            android:backgroundTint="?attr/colorSecondary"
             android:text="Выйти"
             android:textColor="#FFFFFF"
             android:textAllCaps="false"
@@ -175,7 +200,7 @@
             android:src="@drawable/defeult_avatar"
             android:scaleType="centerCrop"
             android:padding="3dp"
-            app:strokeColor="#FFFFFF"
+            app:strokeColor="?android:attr/windowBackground"
             app:strokeWidth="4dp"
             app:shapeAppearanceOverlay="@style/CircleImage" />
 
@@ -184,6 +209,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_gravity="bottom|end"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/add_avatar"
  />
     </FrameLayout>

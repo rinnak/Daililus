@@ -1,7 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.Daililus" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/dark_bg_purple</item>
+        <item name="android:windowBackground">@color/dark_white</item>
+        <item name="colorSecondary">@color/dark_button_orange</item>
+        <item name="colorSurface">@color/dark_input_field_bg</item>
+
+        <item name="android:textColorPrimary">@color/dark_text_main</item>
+        <item name="android:textColorSecondary">@color/dark_text_secondary</item>
     </style>
 </resources>

@@ -175,23 +175,4 @@ public class NoteEditorActivity extends AppCompatActivity {
         finish();
     }
 
-
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent event){
-//        if(event.getAction() == MotionEvent.ACTION_DOWN){
-//            View view = getCurrentFocus();
-//            if (view instanceof EditText){
-//                Rect outRect = new Rect();
-//                view.getGlobalVisibleRect(outRect);
-//                if (!outRect.contains((int) event.getRawX(), (int) event.getRawY())) {
-//                    view.clearFocus();
-//                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//                    if (imm != null){
-//                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-//                    }
-//                }
-//            }
-//        }
-//        return super.dispatchTouchEvent(event);
-//    }
 }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_purple"
+    android:background="?attr/colorPrimary"
     >
 
     <TextView
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Добро пожаловать!"
-            android:textColor="@color/text_main"
+            android:textColor="?android:attr/textColorPrimary"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Создайте аккаунт, чтобы продолжить"
-            android:textColor="@color/text_secondary" />
+            android:textColor="?android:attr/textColorSecondary"    />
 
 
         <EditText
@@ -53,8 +53,8 @@
             android:layout_marginTop="32dp"
             android:background="@drawable/bg_input_field"
             android:hint="Ваше имя"
-            android:textColor="#000000"
-            android:textColorHint="#8C8C8C"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textColorHint="?android:attr/textColorSecondary"
             android:inputType="textEmailAddress"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"/>
@@ -64,8 +64,8 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
-            android:textColor="#000000"
-            android:textColorHint="#8C8C8C"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textColorHint="?android:attr/textColorSecondary"
             android:background="@drawable/bg_input_field"
             android:hint="example@mail.ru"
             android:inputType="textEmailAddress"
@@ -78,9 +78,9 @@
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/bg_input_field"
-            android:hint="пароль"
-            android:textColor="#000000"
-            android:textColorHint="#8C8C8C"
+            android:hint="Пароль"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textColorHint="?android:attr/textColorSecondary"
             android:inputType="textPassword"
             android:paddingStart="16dp" />
 
@@ -95,10 +95,10 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@drawable/bg_input_field"
-            android:backgroundTint="@color/button_orange"
+            android:backgroundTint="?attr/colorSecondary"
+            android:textColor="#FEFEFE"
             android:text="Зарегистрироваться"
             android:textAllCaps="false"
-            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <LinearLayout
@@ -111,6 +111,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="?android:attr/textColorPrimary"
                 android:text="Есть аккаунт? " />
 
             <TextView
@@ -118,7 +119,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Войти"
-                android:textColor="@color/button_orange"
+                android:textColor="?attr/colorSecondary"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>

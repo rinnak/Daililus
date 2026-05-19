@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -60,12 +62,32 @@ public class ProfileFragment extends Fragment {
         TextView tvPolicyDetails = view.findViewById(R.id.tvPolicyDetails);
         ImageView ivPolicyArrow = view.findViewById(R.id.ivArrowPolicy);
 
+        SwitchMaterial switchTheme = view.findViewById(R.id.switchTheme);
+
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             currentUserEmail = currentUser.getEmail();
             tvUserEmail.setText(currentUserEmail);
             String name = dbHelper.getUserName(currentUserEmail);
             tvUserName.setText(name != null ? name : "Пользователь");
+        }
+
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("DaililusSettings", Context.MODE_PRIVATE);
+        boolean isDarkMode = sharedPreferences.getBoolean("IsDarkMode", false);
+
+        if (switchTheme != null){
+            switchTheme.setChecked(isDarkMode);
+            switchTheme.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean("IsDarkMode", isChecked);
+                editor.apply();
+                if(isChecked){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            });
         }
 
         if(currentUserEmail != null){

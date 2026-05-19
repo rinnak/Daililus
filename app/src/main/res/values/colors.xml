@@ -6,4 +6,11 @@
     <color name="text_main">#1A1A2E</color>
     <color name="text_secondary">#6C6C7A</color>
     <color name="white">#FEFEFE</color>
+
+    <color name="dark_bg_purple">#1B0B30</color>
+    <color name="dark_button_orange">#FF9E79</color>
+    <color name="dark_input_field_bg">#2D243A</color>
+    <color name="dark_text_main">#E6E6FA</color>
+    <color name="dark_text_secondary">#A9A9B4</color>
+    <color name="dark_white">#121212</color>
 </resources>

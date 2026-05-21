@@ -174,15 +174,42 @@ public class HomeFragment extends Fragment {
     private void setupRecyclerView(){
         rvTasks.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        adapter = new TaskAdapter((task, isChecked) -> {
+        adapter = new TaskAdapter(new TaskAdapter.OnTaskClickListener() {
+            @Override
+            public void onTaskChanged(Task task, boolean isChecked) {
+                viewModel.updateTaskStatus(dbHelper, task.getId(), isChecked);
+                task.setDone(isChecked);
+                updateTaskList();
+            }
 
-            viewModel.updateTaskStatus(dbHelper, task.getId(), isChecked);
-            task.setDone(isChecked);
-            updateTaskList();
+            @Override
+            public void onTaskLongClick(Task task) {
+                showDeleteTaskDialog(task);
+            }
         });
+
         rvTasks.setAdapter(adapter);
+
     }
 
+    private void showDeleteTaskDialog(Task task) {
+        new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                .setTitle("Удаление задачи")
+                .setMessage("Вы уверены, что хотите удалить задачу \"" + task.getText() + "\"?")
+                .setPositiveButton("Удалить", (dialog, which) -> {
+                    new Thread(() -> {
+                        dbHelper.deleteTask(task.getId());
+
+                        if (getActivity() != null) {
+                            getActivity().runOnUiThread(() -> {
+                                updateTaskList();
+                            });
+                        }
+                    }).start();
+                })
+                .setNegativeButton("Отмена", null)
+                .show();
+    }
     @Override
     public void onResume(){
         super.onResume();

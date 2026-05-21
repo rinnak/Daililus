@@ -140,6 +140,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteTask(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_TASKS, "id = ?", new String[]{String.valueOf(id)});
+        db.close();
+    }
+
     public void addNote(String title,String content, String date, String userEmail){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();

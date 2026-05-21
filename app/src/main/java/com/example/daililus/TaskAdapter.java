@@ -15,13 +15,14 @@ import java.util.List;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
     private List<Task> taskList = new ArrayList<>();
-    private OnTaskCheckedChangeListener listener;
+    private OnTaskClickListener listener;
 
-    public interface OnTaskCheckedChangeListener{
+    public interface OnTaskClickListener {
         void onTaskChanged(Task task, boolean isChecked);
+        void onTaskLongClick(Task task);
     }
 
-    public TaskAdapter(OnTaskCheckedChangeListener listener){
+    public TaskAdapter(OnTaskClickListener listener){
         this.listener = listener;
     }
 
@@ -52,6 +53,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             if(listener != null){
                 listener.onTaskChanged(task, isChecked);
             }
+        });
+
+        holder.itemView.setOnLongClickListener(v -> {
+            if (listener != null) {
+                listener.onTaskLongClick(task);
+            }
+            return true;
         });
     }
 
